@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  center
+    h1= title
+    p #{tag1}
+    form(action="/signout")
+      p SIGNOUT 
+      button(type="submit", value="fkwefjnewkfnwekfwnekfjewnkjnfkejn")
+      if(title == 'VALID USER')
+        a(href='/signout') SIGNOUT LINK
+
