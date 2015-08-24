@@ -29,18 +29,18 @@ module.exports = function(router){
 	
 	//router.use('/', session({secret: 'ssshhhhh'}));		//if we make it router.all then sessions will not work
 	//router.get('/', signin1.showpage);
-	router.all('/checkuser', signin.authenticate_user);
+	router.all('/checkuser', signin.formcheck, signin.authenticate_user);
 	router.all('/signout', signin.signout);
 	router.all('/invaliduser', signin.invaliduser);
 
 	router.all('/check', signin.check);
 
 	router.all('/forgot_user', signin.forgot_user);
-	router.all('/forgot_password_handle_token', signin.forgot_password_handle_token);
+	router.all('/forgot_password_handle_token', signin.formcheck, signin.forgot_password_handle_token);
 
-	router.all('/resetpassword/', signin.resetpassword);
+	router.all('/resetpassword/', signin.formcheck, signin.resetpassword);
 
-	router.all('/updatepassword', signin.updatepassword);
+	router.all('/updatepassword', signin.formcheck, signin.updatepassword);
 
 	router.all('/cookie',function(req, res){
      	res.cookie('abcd' , 'cookie_value').send('Cookie is set');

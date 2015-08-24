@@ -3,13 +3,15 @@
 <center>
 SIGNUP PAGE
 </center>
+<script type="text/javascript" src="./html/validator.js"></script>
 </HEAD>
 
 <BODY>
 <center>
-<form action = "http://localhost:3000/signup_submit" method="post">
+<form id="myform" action = "http://localhost:3000/signup_submit" method="post" onsubmit="return combine_validate()">
 <p>Username: </p> <input type = "text" name = "username" id="username" value = "" > 
 <p>Password: </p> <input type = "password" name = "password" id="password" value = "" >
+<p>Confirm Password: </p> <input type = "password" name = "confirm_password" id="confirm_password" value = "" >
 
 <br/>
 <br/><br/>

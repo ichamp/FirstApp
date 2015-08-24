@@ -4,9 +4,12 @@ block content
   center
     h1= title
     p #{tag1}
-    form(action="/signout")
-      p SIGNOUT 
-      button(type="submit", value="fkwefjnewkfnwekfwnekfjewnkjnfkejn")
-      if(title == 'VALID USER')
-        a(href='/signout') SIGNOUT LINK
+
+    a(href="#{linker}") #{link_text}
+    
+ //-   form(action="/signout")
+ //-     p SIGNOUT 
+ //-     button(type="submit", value="fkwefjnewkfnwekfwnekfjewnkjnfkejn")
+ //-     if(title == 'VALID USER')
+ //-       a(href='/signout') SIGNOUT LINK
 

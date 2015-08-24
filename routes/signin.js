@@ -14,10 +14,67 @@ var signin = {
 
 	showpage : function(req, res, next){
 		console.log('Middleware signin showpage.');
+		//console.log(path.resolve(html_dir + 'validator.js'));
 		res.sendfile(path.resolve(html_dir + 'signin.html'));		
 		//next();
 	},
 
+	formcheck : function(req, res, next){
+		var flag = true;
+		var uname;
+		var pass;
+		var letters = /^[0-9a-zA-Z]+$/;  
+
+		if(req.body.username)
+		{
+			console.log('uname = '+req.body.username);
+			uname = req.body.username;
+			
+			if(uname.match(letters) && uname.length >= 6 && uname.length <= 32)
+				;
+			else
+				flag = false;
+		}
+		else
+		if(req.body.username_forgot)
+		{
+			console.log('pass = '+req.body.username_forgot);
+			uname = req.body.username_forgot;
+
+			if(uname.match(letters) && uname.length >= 6 && uname.length <= 32)
+				;
+			else
+				flag = false;
+		}
+		
+
+		if(req.body.password)
+		{
+			console.log('pass = '+req.body.password);
+			pass = req.body.password;
+
+			if(pass.match(letters) && pass.length >= 6 && pass.length <= 32)
+				;
+			else
+				flag = false;
+		}
+		//var pass = req.body.password;
+		
+		
+		
+		
+
+		/*console.log(uname);
+		console.log(pass);
+
+		if(uname == 'siddharth')
+			flag = false;
+		*/
+		if (flag == true)
+			next();
+		else
+			res.send("Some problem with user provided details in form.. DONT HACK/..  Username and password should be greater than or equal to 6 characters, less than 32 chars and contain only A-Z, a-z, 0-9");
+	},
 
 	authenticate_user: function(req, res, next){
 
@@ -47,14 +104,22 @@ var signin = {
 
 					req.session.username = req.body.username;
 					//sess.logintime = time();
+					//var welcome_user_text = 'Hello valid user ' + req.body.username + ' !' ;
+					//res.render('welcome_user',{ title: 'WELCOME USER', tag1: welcome_user_text});
+
+					//welcome user... reusing invalid user jade template
 					var welcome_user_text = 'Hello valid user ' + req.body.username + ' !' ;
-					res.render('welcome_user',{ title: 'WELCOME USER', tag1: welcome_user_text});
+					var linker_msg = '/signout';
+					var link_text_msg = 'CLICK SIGNOUT LINK TO LOGOUT';
+					res.render('invalid_user',{ title: 'WELCOME USER', tag1: welcome_user_text, linker : linker_msg, link_text : link_text_msg});
 				}
 				else
 				{
 					console.log("MATCHES ELSE");
 					var welcome_user_text = "Hey no entry found with this username and password";
-					res.render('invalid_user',{ title: 'INVALID USER', tag1: welcome_user_text});
+					var linker_msg = '/';
+					var link_text_msg = 'CLICK TO GO TO SIGNIN PAGE';
+					res.render('invalid_user',{ title: 'INVALID USER', tag1: welcome_user_text, linker : linker_msg, link_text : link_text_msg});
 					//res.render('welcome_user',{ title: 'INVALID USER', tag1: welcome_user_text});
 				}
 			}
